@@ -11,7 +11,7 @@ import {
     X,
     ChevronDown,
     ChevronRight,
-    DollarSign,
+    BriefcaseBusiness,
     Sparkles,
     TrendingUp
 } from "lucide-react";
@@ -223,10 +223,6 @@ function Header() {
 
                         {/* Quick Links */}
                         <div className="flex items-center gap-8 py-4">
-                            <Link to="/ofertas" className="text-gray-700 hover:text-[#028dfe] font-medium transition-colors duration-200 flex items-center gap-2">
-                                <DollarSign className="w-5 h-5" />
-                                Ofertas
-                            </Link>
                             <Link to="/novidades" className="text-gray-700 hover:text-[#028dfe] font-medium transition-colors duration-200 flex items-center gap-2">
                                 <Sparkles className="w-5 h-5" />
                                 Novidades
@@ -234,6 +230,10 @@ function Header() {
                             <Link to="/mais-vendidos" className="text-gray-700 hover:text-[#028dfe] font-medium transition-colors duration-200 flex items-center gap-2">
                                 <TrendingUp className="w-5 h-5" />
                                 Mais Vendidos
+                            </Link>
+                            <Link to="/servicos" className="text-gray-700 hover:text-[#028dfe] font-medium transition-colors duration-200 flex items-center gap-2">
+                                <BriefcaseBusiness className="w-5 h-5" />
+                                Serviços
                             </Link>
                         </div>
                     </div>
@@ -289,10 +289,6 @@ function Header() {
 
                     {/* Mobile Quick Links */}
                     <div className="border-t border-gray-200 py-2">
-                        <Link to="/ofertas" className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50" onClick={() => setIsMenuOpen(false)}>
-                            <DollarSign className="w-5 h-5 text-[#028dfe]" />
-                            <span className="font-medium">Ofertas</span>
-                        </Link>
                         <Link to="/novidades" className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50" onClick={() => setIsMenuOpen(false)}>
                             <Sparkles className="w-5 h-5 text-[#028dfe]" />
                             <span className="font-medium">Novidades</span>
@@ -300,6 +296,10 @@ function Header() {
                         <Link to="/mais-vendidos" className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50" onClick={() => setIsMenuOpen(false)}>
                             <TrendingUp className="w-5 h-5 text-[#028dfe]" />
                             <span className="font-medium">Mais Vendidos</span>
+                        </Link>
+                        <Link to="/servicos" className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50" onClick={() => setIsMenuOpen(false)}>
+                            <BriefcaseBusiness className="w-5 h-5 text-[#028dfe]" />
+                            <span className="font-medium">Serviços</span>
                         </Link>
                     </div>
 

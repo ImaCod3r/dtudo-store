@@ -3,66 +3,56 @@ import { login } from "../services/auth";
 import { useAuth } from "../auth/useAuth";
 import { useNavigate } from "react-router-dom";
 
+// Components
+import Logo from "../components/Logo";
+import Hero from "../components/Hero";
+
 function Login() {
     const { refreshUser } = useAuth();
     const navigate = useNavigate();
 
+    const handleLogin = async (response: any) => {
+        const token = response.credential;
+
+        if (!token) throw new Error("Token not found");
+
+        try {
+            await login(token);
+            await refreshUser();
+            navigate('/');
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
-        <div className="min-h-screen flex items-center justify-center">
-            <div className="w-full max-w-md px-6">
-                {/* Logo/Brand Section */}
-                <div className="text-center mb-8">
-                    <h1 className="text-4xl font-bold mb-2" style={{ color: '#028dfe' }}>
-                        DTudo Store
+        <div className="w-full p-6 lg:p-8">
+            <div className="w-full">
+                <Logo />
+            </div>
+
+            <div className="flex flex-col lg:flex-row gap-10 lg:gap-5 justify-between mt-10">
+                <div className="w-full lg:w-1/2 flex flex-col gap-6 lg:mt-10">
+                    <h1 className="text-3xl lg:text-5xl text-left font-bold text-[#309EE9]">
+                        Faça login para começar a sua experiência de compras.
                     </h1>
-                    <p className="text-gray-600">
-                        Entre para continuar suas compras
+                    <p className="text-left text-gray-400 w-full lg:w-1/2">
+                        Novo por aqui? O cadastro será feito automaticamente no primeiro login.
                     </p>
-                </div>
 
-                {/* Login Card */}
-                <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-                    <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
-                        Bem-vindo de volta!
-                    </h2>
-
-                    <div className="space-y-4">
-                        <GoogleLogin onSuccess={async (response) => {
-                            const token = response.credential;
-
-                            if (!token) throw new Error("Token not found");
-
-                            try {
-                                await login(token);
-                                await refreshUser();
-                                navigate('/');
-                            } catch (error) {
-                                console.log(error);
-                            }
-                        }}
-                            onError={() => {
-                                console.log("error");
-                            }}
+                    <div className="w-full lg:w-1/2">
+                        <GoogleLogin
+                            onSuccess={handleLogin}
+                            onError={() => console.error()}
                         />
                     </div>
 
-                    {/* Additional Info */}
-                    <div className="mt-6 text-center text-sm text-gray-500">
-                        Ao fazer login, você concorda com nossos{' '}
-                        <a href="#" className="underline hover:text-blue-600">
-                            Termos de Serviço
-                        </a>
-                        {' '}e{' '}
-                        <a href="#" className="underline hover:text-blue-600">
-                            Política de Privacidade
-                        </a>
-                    </div>
+                    <p className="text-left text-gray-400 w-full lg:w-1/2">
+                        Ao fazer login, você concorda com nossos <a href="#" className="text-[#309EE9]">Termos de Serviço</a> e <a href="#" className="text-[#309EE9]">Política de Privacidade</a>.
+                    </p>
                 </div>
 
-                {/* Footer Note */}
-                <p className="text-center text-gray-500 text-sm mt-6">
-                    Novo por aqui? O cadastro será feito automaticamente no primeiro login.
-                </p>
+                <Hero className="w-full lg:w-1/2" />
             </div>
         </div>
     )
