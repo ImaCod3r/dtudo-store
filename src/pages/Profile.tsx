@@ -8,6 +8,7 @@ import { getAddresses, deleteAddress } from '../services/address';
 // Hooks
 import { useAuth } from '../auth/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { useAlert } from '../context/AlertContext';
 
 // Utils
 import { formatPrice } from '../utils/formatPrice';
@@ -18,6 +19,7 @@ import type { Order, Address } from '../types';
 function Profile() {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
+    const { showSuccess, showError } = useAlert();
     // States
     const [activeSection, setActiveSection] = useState<'orders' | 'addresses'>('orders');
     const [orders, setOrders] = useState<Order[]>([]);
@@ -38,18 +40,30 @@ function Profile() {
                 setOrders([]);
             }
         } catch (error) {
+            showError('Erro ao buscar pedidos');
             console.error('Erro ao buscar pedidos:', error);
         }
     };
 
     const fetchAddresses = async () => {
-        const data = await getAddresses();
-        setAddresses(data?.addresses);
+        try {
+            const data = await getAddresses();
+            setAddresses(data?.addresses);
+        } catch (error) {
+            showError('Erro ao buscar endereços');
+            console.error('Erro ao buscar endereços:', error);
+        }
     }
 
     const handleDeleteAddress = async (id: number) => {
-        await deleteAddress(id);
-        fetchAddresses();
+        try {
+            await deleteAddress(id);
+            showSuccess('Endereço excluído com sucesso');
+            fetchAddresses();
+        } catch (error) {
+            showError('Erro ao excluir endereço');
+            console.error('Erro ao excluir endereço:', error);
+        }
     }
 
     useEffect(() => {

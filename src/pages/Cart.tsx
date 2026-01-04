@@ -15,8 +15,6 @@ function Cart() {
     const tax = subtotal * 0.1;
     const total = subtotal + shipping + tax;
 
-    console.log(cartId);
-
     if (cart.length === 0) {
         return (
             <div className="max-w-7xl mx-auto px-4 py-20 flex flex-col items-center justify-center text-center">

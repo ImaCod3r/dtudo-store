@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState, useMemo } from '
 import type { CartItem, Product } from '../types';
 import { add, getCart, remove, update, clear } from '../services/cart';
 import { AuthContext } from '../auth/AuthContext';
+import { useAlert } from './AlertContext';
 
 interface CartContextType {
   cart: CartItem[];
@@ -18,6 +19,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const { user } = useContext(AuthContext);
+  const { showSuccess, showError } = useAlert();
   const [cart, setCart] = useState<CartItem[]>([]);
   const [cartId, setCartId] = useState<string | null>(null);
 
@@ -32,12 +34,18 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
     try {
       const response = await getCart();
+
       if (response?.cart) {
-        setCart(response.cart.items);
+        setCart(response.cart.items || []);
         setCartId(response.cart.public_id);
+      } else {
+        setCart([]);
+        setCartId(null);
       }
     } catch (error) {
-      console.error("Failed to refresh cart:", error);
+      console.error("[CartContext] Failed to refresh cart:", error);
+      setCart([]);
+      setCartId(null);
     }
   };
 
@@ -47,40 +55,68 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const addToCart = async (product: Product, quantity: number = 1) => {
     if (!user) {
-      console.error("User must be logged in to add to cart");
+      showError("Você precisa estar logado para adicionar ao carrinho");
       return;
     }
 
     try {
-      await add(product.id, quantity);
+      const response = await add(product.id, quantity);
       await refreshCart();
+
+      if (response?.error === false) {
+        showSuccess(response.message);
+      } else if (response?.error === true) {
+        showError(response.message);
+      }
     } catch (error) {
+      await refreshCart();
+      showError("Erro ao adicionar produto ao carrinho");
       console.error("Failed to add to cart:", error);
     }
   };
 
   const removeFromCart = async (itemId: number) => {
     if (!user) {
-      console.error("User must be logged in to remove from cart");
+      showError("Você precisa estar logado para remover do carrinho");
       return;
     }
     try {
-      await remove(itemId.toString());
+      const response = await remove(itemId.toString());
       await refreshCart();
+
+      if (response?.error === false) {
+        showSuccess(response.message);
+      } else if (response?.error === true) {
+        showError(response.message);
+      }
     } catch (error) {
+      // Tenta atualizar mesmo em caso de erro
+      await refreshCart();
+      showError("Erro ao remover produto do carrinho");
       console.error("Failed to remove from cart:", error);
     }
   };
 
   const updateQuantity = async (itemId: number, quantity: number) => {
     if (!user) {
-      console.error("User must be logged in to update quantity");
+      showError("Você precisa estar logado para atualizar a quantidade");
       return;
     }
     try {
-      await update(user.public_id, itemId.toString(), quantity);
+      const response = await update(user.public_id, itemId.toString(), quantity);
+      // Sempre atualiza o carrinho primeiro
       await refreshCart();
+
+      // Depois mostra o alerta
+      if (response?.error === false) {
+        showSuccess(response.message);
+      } else if (response?.error === true) {
+        showError(response.message);
+      }
     } catch (error) {
+      // Tenta atualizar mesmo em caso de erro
+      await refreshCart();
+      showError("Erro ao atualizar quantidade");
       console.error("Failed to update quantity:", error);
     }
   };
@@ -88,8 +124,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const clearCart = async () => {
     try {
       await clear();
+      showSuccess("Carrinho limpo com sucesso");
       await refreshCart();
     } catch (error) {
+      showError("Erro ao limpar carrinho");
       console.error("Failed to clear cart:", error);
     }
   }

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../auth/useAuth';
+import { useAlert } from '../context/AlertContext';
 
 import { createOrder } from '../services/order';
 import { BASE_URL } from '../api/axios';
@@ -30,6 +31,7 @@ L.Marker.prototype.options.icon = DefaultIcon;
 function Checkout() {
   const { cart, subtotal, cartId } = useCart();
   const { user } = useAuth();
+  const { showSuccess, showError } = useAlert();
   const [address, setAddress] = useState<any | null>(null);
   const navigate = useNavigate();
   const [isOrdered, setIsOrdered] = useState(false);
@@ -46,13 +48,13 @@ function Checkout() {
   });
 
   const total = subtotal + 1500 + (subtotal * 0.1);
-  
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!user || !cartId) return;
-    
+
     setIsLoading(true);
-    
+
     const orderData = {
       items: cart,
       address: address!,
@@ -61,9 +63,15 @@ function Checkout() {
     }
 
     try {
-      await createOrder(orderData);
-      setIsOrdered(true);
+      const response = await createOrder(orderData);
+      if (response?.error === false) {
+        showSuccess(response.message || 'Pedido criado com sucesso!');
+        setIsOrdered(true);
+      } else if (response?.error === true) {
+        showError(response.message || 'Erro ao criar pedido');
+      }
     } catch (error) {
+      showError('Erro ao processar o pedido');
       console.error("Order failed:", error);
     } finally {
       setIsLoading(false);
@@ -136,6 +144,7 @@ function Checkout() {
         }));
       }
     } catch (error) {
+      showError('Erro ao buscar endereço. Tente novamente');
       console.error("Geocoding error:", error);
     } finally {
       setIsGeocoding(false);

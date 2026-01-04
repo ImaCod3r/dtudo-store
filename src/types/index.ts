@@ -1,3 +1,9 @@
+export interface ApiResponse<T = any> {
+  error: boolean;
+  message: string;
+  data?: T;
+}
+
 export interface User {
   name: string;
   email: string;

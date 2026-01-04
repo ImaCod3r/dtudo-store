@@ -6,6 +6,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider } from './auth/AuthProvider';
 import { CartProvider } from './context/CartContext';
 import { LocationProvider } from './context/LocationContext';
+import { AlertProvider } from './context/AlertContext';
 
 // Components
 import Header from './components/Header';
@@ -27,37 +28,39 @@ function App() {
       <AuthProvider>
         <GoogleOAuthProvider clientId={clientId}>
           <LocationProvider>
-            <CartProvider>
-              <Router>
-                <Routes>
-                  {/* Login Route - Standalone Layout */}
-                  <Route path="/login" element={<Login />} />
+            <AlertProvider>
+              <CartProvider>
+                <Router>
+                  <Routes>
+                    {/* Login Route - Standalone Layout */}
+                    <Route path="/login" element={<Login />} />
 
-                  {/* Main App Routes - With Header, Breadcrumbs, and Footer */}
-                  <Route path="/*" element={
-                    <>
-                      <Header />
-                      <main className="pt-40 md:pt-52">
-                        <Routes>
-                          <Route path="/profile" element={<Profile />} />
-                          <Route path="/" element={<Home />} />
-                          <Route path="/categoria/:category/:subcategory?" element={<Home />} />
-                          <Route path="/produto/:public_id" element={<ProductDetails />} />
-                          <Route path="/cart" element={<Cart />} />
-                          <Route path="/checkout" element={<Checkout />} />
-                        </Routes>
-                      </main>
-                      <Footer />
-                    </>
-                  } />
-                </Routes>
-              </Router>
-            </CartProvider>
+                    {/* Main App Routes - With Header, Breadcrumbs, and Footer */}
+                    <Route path="/*" element={
+                      <>
+                        <Header />
+                        <main className="pt-40 md:pt-52">
+                          <Routes>
+                            <Route path="/profile" element={<Profile />} />
+                            <Route path="/" element={<Home />} />
+                            <Route path="/categoria/:category/:subcategory?" element={<Home />} />
+                            <Route path="/produto/:public_id" element={<ProductDetails />} />
+                            <Route path="/cart" element={<Cart />} />
+                            <Route path="/checkout" element={<Checkout />} />
+                          </Routes>
+                        </main>
+                        <Footer />
+                      </>
+                    } />
+                  </Routes>
+                </Router>
+              </CartProvider>
+            </AlertProvider>
           </LocationProvider>
         </GoogleOAuthProvider>
-        </AuthProvider>
-      </>
-      );
+      </AuthProvider>
+    </>
+  );
 }
 
-      export default App
+export default App
