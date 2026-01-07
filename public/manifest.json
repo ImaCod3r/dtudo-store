@@ -1,0 +1,33 @@
+{
+    "name": "Dtudo Shop",
+    "short_name": "Dtudo",
+    "description": "A sua loja online favorita com entrega rápida em toda Angola.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#028dfe",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/favicon.png",
+            "sizes": "64x64 32x32 24x24 16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/icon-512x512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "screenshots": [],
+    "categories": [
+        "shopping",
+        "lifestyle"
+    ],
+    "lang": "pt-AO"
+}

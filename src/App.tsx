@@ -32,11 +32,13 @@ import FAQ from './pages/FAQ';
 import Contact from './pages/Contact';
 import PhoneAlert from './components/PhoneAlert';
 import PushNotificationDialog from './components/PushNotificationDialog';
+import { InstallPrompt } from './components/InstallPrompt';
 
 function App() {
   const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
   return (
     <>
+      <InstallPrompt />
       <PushNotificationDialog />
       <AuthProvider>
         <GoogleOAuthProvider clientId={clientId}>
