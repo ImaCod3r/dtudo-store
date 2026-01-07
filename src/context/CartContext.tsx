@@ -61,15 +61,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
     try {
       const response = await add(product.id, quantity);
-      await refreshCart();
 
       if (response?.error === false) {
         showSuccess(response.message);
+        await refreshCart();
       } else if (response?.error === true) {
         showError(response.message);
       }
     } catch (error) {
-      await refreshCart();
       showError("Erro ao adicionar produto ao carrinho");
       console.error("Failed to add to cart:", error);
     }
@@ -80,18 +79,26 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       showError("Você precisa estar logado para remover do carrinho");
       return;
     }
+
+    // Guardar estado anterior para rollback
+    const previousCart = [...cart];
+
+    // Atualização otimista: remover item localmente
+    setCart(prev => prev.filter(item => item.id !== itemId));
+
     try {
       const response = await remove(itemId.toString());
-      await refreshCart();
 
       if (response?.error === false) {
         showSuccess(response.message);
-      } else if (response?.error === true) {
-        showError(response.message);
+        // Sincronizar com o servidor em background
+        refreshCart();
+      } else {
+        setCart(previousCart);
+        showError(response?.message || "Erro ao remover produto");
       }
     } catch (error) {
-      // Tenta atualizar mesmo em caso de erro
-      await refreshCart();
+      setCart(previousCart);
       showError("Erro ao remover produto do carrinho");
       console.error("Failed to remove from cart:", error);
     }
@@ -102,31 +109,47 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       showError("Você precisa estar logado para atualizar a quantidade");
       return;
     }
+
+    if (quantity < 1) {
+      return removeFromCart(itemId);
+    }
+
+    const previousCart = [...cart];
+
+    // Atualização otimista: atualizar quantidade localmente
+    setCart(prev => prev.map(item =>
+      item.id === itemId ? { ...item, quantity } : item
+    ));
+
     try {
       const response = await update(user.public_id, itemId.toString(), quantity);
-      // Sempre atualiza o carrinho primeiro
-      await refreshCart();
 
-      // Depois mostra o alerta
       if (response?.error === false) {
         showSuccess(response.message);
-      } else if (response?.error === true) {
-        showError(response.message);
+        refreshCart();
+      } else {
+        setCart(previousCart);
+        showError(response?.message || "Erro ao atualizar quantidade");
       }
     } catch (error) {
-      // Tenta atualizar mesmo em caso de erro
-      await refreshCart();
+      setCart(previousCart);
       showError("Erro ao atualizar quantidade");
       console.error("Failed to update quantity:", error);
     }
   };
 
   const clearCart = async () => {
+    const previousCart = [...cart];
+
+    // Atualização otimista: limpar localmente
+    setCart([]);
+
     try {
       await clear();
       showSuccess("Carrinho limpo com sucesso");
-      await refreshCart();
+      refreshCart();
     } catch (error) {
+      setCart(previousCart);
       showError("Erro ao limpar carrinho");
       console.error("Failed to clear cart:", error);
     }

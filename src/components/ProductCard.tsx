@@ -15,7 +15,7 @@ function ProductCard({ product }: ProductCardProps) {
     const { addToCart } = useCart();
 
     return (
-        <div className="group bg-white dark:bg-gray-900 rounded-[2rem] border border-gray-100 dark:border-gray-800 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col h-full relative">
+        <div className="group bg-white dark:bg-gray-900 rounded-4xl border border-gray-100 dark:border-gray-800 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col h-full relative">
             <Link to={`/produto/${product.public_id}`} className="relative block overflow-hidden aspect-square">
                 <img
                     src={product.image_url.startsWith('http') ? product.image_url : `${BASE_URL}/${product.image_url}`}

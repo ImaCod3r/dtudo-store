@@ -33,7 +33,7 @@ let DefaultIcon = L.icon({
 L.Marker.prototype.options.icon = DefaultIcon;
 
 function Checkout() {
-  const { cart, subtotal, cartId } = useCart();
+  const { cart, subtotal, cartId, clearCart } = useCart();
   const { user } = useAuth();
   const { showSuccess, showError } = useAlert();
   const [address, setAddress] = useState<any | null>(null);
@@ -75,6 +75,9 @@ function Checkout() {
       const response = await createOrder(orderData);
       if (response?.error === false) {
         showSuccess(response.message || 'Pedido criado com sucesso!');
+        if (clearCart) {
+          await clearCart();
+        }
         setIsOrdered(true);
       } else if (response?.error === true) {
         showError(response.message || 'Erro ao criar pedido');

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Package, MapPin, LogOut, ChevronLeft, ChevronRight, ShoppingBag, Home, Trash2, Loader2, X, Phone, Calendar, CreditCard, Edit2, Camera, User as UserIcon } from 'lucide-react';
+import { Package, MapPin, LogOut, ChevronLeft, ChevronRight, ShoppingBag, Home, Trash2, Loader2, X, Phone, Calendar, CreditCard, Edit2, Camera, User as UserIcon, ShieldCheck } from 'lucide-react';
 
 // Services
 import { getUserOrders } from '../services/order';
@@ -151,35 +151,49 @@ function Profile() {
     }
 
     return (
-        <div className="max-w-4xl mx-auto px-4 py-8">
-            {/* User Header */}
-            <div className="bg-white dark:bg-gray-800 rounded-3xl p-8 border border-gray-100 dark:border-gray-700 shadow-sm flex flex-col md:flex-row items-center gap-8 mb-8 transition-colors duration-300">
-                <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-[#008cff]/20 shadow-lg flex items-center justify-center bg-gray-100 dark:bg-gray-700">
-                    {user?.avatar ? (
-                        <img
-                            src={user.avatar.startsWith('http') ? user.avatar : `${BASE_URL}/${user.avatar}`}
-                            alt={user?.name}
-                            className="w-full h-full object-cover"
-                        />
-                    ) : (
-                        <UserIcon className="w-12 h-12 text-gray-400" />
-                    )}
+        <div className="max-w-5xl mx-auto px-4 py-12">
+            {/* User Header - Modernized */}
+            <div className="bg-white dark:bg-gray-800 rounded-[2.5rem] p-8 sm:p-10 border border-gray-100 dark:border-gray-700 shadow-xl shadow-blue-500/5 flex flex-col md:flex-row items-center gap-10 mb-12 relative overflow-hidden transition-all duration-300">
+                {/* Decorative Background Element */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50/50 dark:bg-blue-900/5 rounded-full -mr-32 -mt-32 blur-3xl opacity-50"></div>
+
+                <div className="relative group shrink-0">
+                    <div className="w-32 h-32 rounded-full overflow-hidden ring-4 ring-white dark:ring-gray-800 shadow-2xl flex items-center justify-center bg-gray-100 dark:bg-gray-700">
+                        {user?.avatar ? (
+                            <img
+                                src={user.avatar.startsWith('http') ? user.avatar : `${BASE_URL}/${user.avatar}`}
+                                alt={user?.name}
+                                className="w-full h-full object-cover"
+                            />
+                        ) : (
+                            <div className="w-full h-full bg-linear-to-br from-[#028dfe] to-blue-600 flex items-center justify-center text-white text-4xl font-black">
+                                {user?.name.charAt(0).toUpperCase()}
+                            </div>
+                        )}
+                    </div>
                 </div>
-                <div className="flex-1 text-center md:text-left">
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-1">{user?.name}</h1>
-                    <p className="text-gray-500 mb-4">{user?.email}</p>
+
+                <div className="flex-1 text-center md:text-left z-10 w-full">
+                    <div className="mb-4">
+                        <h1 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-2 leading-tight tracking-tight">
+                            {user?.name}
+                        </h1>
+                        <p className="text-gray-500 dark:text-gray-400 font-medium">{user?.email}</p>
+                    </div>
+
                     <div className="flex flex-wrap justify-center md:justify-start gap-3">
-                        <span className="bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 text-xs font-bold px-3 py-1 rounded-full border border-green-100 dark:border-green-800 flex items-center gap-1">
-                            <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div> Cliente Verificado
+                        <span className="bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 text-xs font-black uppercase tracking-widest px-4 py-2 rounded-2xl border border-emerald-100 dark:border-emerald-800/50 flex items-center gap-2">
+                            <ShieldCheck className="w-4 h-4" /> Cliente Verificado
                         </span>
                         {user.phone && (
-                            <span className="bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 text-xs font-bold px-3 py-1 rounded-full border border-blue-100 dark:border-blue-800 flex items-center gap-1">
-                                <Phone className="w-3 h-3" /> {user.phone}
+                            <span className="bg-blue-50 dark:bg-blue-900/20 text-[#028dfe] dark:text-blue-400 text-xs font-black uppercase tracking-widest px-4 py-2 rounded-2xl border border-blue-100 dark:border-blue-800/50 flex items-center gap-2">
+                                <Phone className="w-4 h-4" /> {user.phone}
                             </span>
                         )}
                     </div>
                 </div>
-                <div className="flex gap-2">
+
+                <div className="flex gap-3 z-10">
                     <button
                         onClick={() => {
                             setEditForm({
@@ -189,14 +203,14 @@ function Profile() {
                             });
                             setIsEditingProfile(true);
                         }}
-                        className="p-3 bg-blue-50 dark:bg-blue-900/20 text-blue-500 dark:text-blue-400 rounded-2xl hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors"
+                        className="w-12 h-12 flex items-center justify-center bg-gray-50 dark:bg-gray-700/50 text-gray-400 hover:text-[#028dfe] rounded-2xl border border-gray-100 dark:border-gray-600 transition-all hover:shadow-lg active:scale-95"
                         title="Editar Perfil"
                     >
                         <Edit2 className="w-5 h-5" />
                     </button>
                     <button
                         onClick={logout}
-                        className="p-3 bg-red-50 dark:bg-red-900/20 text-red-500 dark:text-red-400 rounded-2xl hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors"
+                        className="w-12 h-12 flex items-center justify-center bg-red-50 dark:bg-red-900/10 text-red-500 rounded-2xl border border-red-100 dark:border-red-900/30 transition-all hover:shadow-lg active:scale-95"
                         title="Sair"
                     >
                         <LogOut className="w-5 h-5" />
@@ -204,128 +218,133 @@ function Profile() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
                 {/* Profile Sidebar */}
-                <div className="space-y-4">
-                    <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm">
-                        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Minha Conta</h3>
-                        <nav className="space-y-1">
+                <div className="lg:col-span-4 space-y-6">
+                    <div className="bg-white dark:bg-gray-800 rounded-[2.5rem] p-8 border border-gray-100 dark:border-gray-700 shadow-xl shadow-blue-500/5">
+                        <h3 className="text-sm font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] mb-8 ml-2">Minha Conta</h3>
+                        <nav className="space-y-2">
                             <button
                                 onClick={() => setActiveSection('orders')}
-                                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-colors ${activeSection === 'orders'
-                                    ? 'bg-[#008cff]/10 text-[#008cff] font-bold'
-                                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
+                                className={`w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all duration-300 ${activeSection === 'orders'
+                                    ? 'bg-[#028dfe] text-white shadow-xl shadow-blue-500/20'
+                                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 font-bold'
                                     }`}
                             >
-                                <div className="flex items-center gap-3">
-                                    <Package className="w-5 h-5" /> Pedidos
+                                <div className="flex items-center gap-4">
+                                    <ShoppingBag className="w-5 h-5" />
+                                    <span className="tracking-tight">Meus Pedidos</span>
                                 </div>
-                                <ChevronRight className="w-4 h-4" />
+                                <ChevronRight className={`w-4 h-4 transition-transform ${activeSection === 'orders' ? 'rotate-90' : ''}`} />
                             </button>
                             <button
                                 onClick={() => setActiveSection('addresses')}
-                                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-colors ${activeSection === 'addresses'
-                                    ? 'bg-[#008cff]/10 text-[#008cff] font-bold'
-                                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
+                                className={`w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all duration-300 ${activeSection === 'addresses'
+                                    ? 'bg-[#028dfe] text-white shadow-xl shadow-blue-500/20'
+                                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 font-bold'
                                     }`}
                             >
-                                <div className="flex items-center gap-3">
-                                    <MapPin className="w-5 h-5" /> Endereços
+                                <div className="flex items-center gap-4">
+                                    <MapPin className="w-5 h-5" />
+                                    <span className="tracking-tight">Endereços</span>
                                 </div>
-                                <ChevronRight className="w-4 h-4" />
+                                <ChevronRight className={`w-4 h-4 transition-transform ${activeSection === 'addresses' ? 'rotate-90' : ''}`} />
                             </button>
                         </nav>
                     </div>
                 </div>
 
                 {/* Content Area */}
-                <div className="md:col-span-2 space-y-4">
+                <div className="lg:col-span-8 space-y-6">
                     {activeSection === 'orders' ? (
                         <>
-                            <h2 className="text-xl font-bold text-gray-900 dark:text-white px-2 flex items-center gap-2">
-                                <ShoppingBag className="w-5 h-5" /> Pedidos Recentes
-                            </h2>
+                            <div className="flex items-center justify-between px-4">
+                                <h2 className="text-2xl font-black text-gray-900 dark:text-white flex items-center gap-3 tracking-tight">
+                                    Meus Pedidos
+                                </h2>
+                                <span className="bg-blue-50 dark:bg-blue-900/20 text-[#028dfe] text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full border border-blue-100 dark:border-blue-800">
+                                    {pagination?.total_items || orders.length} Totais
+                                </span>
+                            </div>
 
                             {isLoadingOrders ? (
-                                <div className="flex flex-col items-center justify-center min-h-[400px] text-gray-400">
-                                    <Loader2 className="w-12 h-12 animate-spin mb-4 text-[#008cff]" />
-                                    <p className="text-sm font-medium">Carregando seus pedidos...</p>
+                                <div className="flex flex-col items-center justify-center min-h-[400px]">
+                                    <div className="relative">
+                                        <div className="w-16 h-16 border-4 border-blue-100 rounded-full animate-spin border-t-[#028dfe]"></div>
+                                        <Loader2 className="w-6 h-6 text-[#028dfe] absolute inset-0 m-auto animate-pulse" />
+                                    </div>
+                                    <p className="mt-6 text-gray-400 font-bold uppercase tracking-widest text-xs">A carregar pedidos...</p>
                                 </div>
                             ) : orders?.length === 0 ? (
-                                <div className="bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-12 border border-blue-200 dark:border-gray-700 shadow-sm flex flex-col items-center justify-center text-center min-h-[400px] transition-all">
-                                    <div className="w-24 h-24 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center mb-6 shadow-lg border-4 border-[#008cff]/10">
-                                        <ShoppingBag className="w-12 h-12 text-[#008cff]" />
+                                <div className="bg-white dark:bg-gray-800 rounded-[3rem] p-16 border border-gray-100 dark:border-gray-700 shadow-xl shadow-blue-500/5 flex flex-col items-center text-center transition-all">
+                                    <div className="w-24 h-24 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center mb-8">
+                                        <ShoppingBag className="w-12 h-12 text-[#028dfe]" />
                                     </div>
-                                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                                        Nenhum pedido ainda
-                                    </h3>
-                                    <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-md">
-                                        Você ainda não fez nenhum pedido. Explore nossa loja e descubra produtos incríveis!
-                                    </p>
+                                    <h3 className="text-2xl font-black text-gray-900 dark:text-white mb-4 tracking-tight">Nenhum pedido ainda</h3>
+                                    <p className="text-gray-500 dark:text-gray-400 mb-10 max-w-sm font-medium leading-relaxed">Parece que ainda não encontraste o teu produto favorito. Explora a nossa loja!</p>
                                     <button
                                         onClick={() => navigate('/')}
-                                        className="bg-[#008cff] text-white px-8 py-4 rounded-2xl font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center gap-2"
+                                        className="bg-[#028dfe] text-white px-10 py-5 rounded-4xl font-black uppercase tracking-widest shadow-2xl shadow-blue-500/30 hover:scale-105 active:scale-95 transition-all"
                                     >
-                                        <ShoppingBag className="w-5 h-5" />
-                                        Começar a Comprar
+                                        Explorar Produtos
                                     </button>
                                 </div>
                             ) : (
                                 <div className="space-y-4">
                                     {(orders as Order[]).map((order: Order) => (
-                                        <div key={order.id} onClick={() => setSelectedOrder(order)} className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 group hover:border-[#008cff]/30 transition-all cursor-pointer overflow-hidden relative">
-                                            {/* Status logic */}
-                                            <div className="flex items-center gap-3 sm:gap-4 relative z-10 min-w-0 flex-1">
-                                                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-50 dark:bg-gray-900 rounded-2xl flex items-center justify-center text-[#008cff] shrink-0">
-                                                    <Package className="w-5 h-5 sm:w-6 sm:h-6" />
+                                        <div
+                                            key={order.id}
+                                            onClick={() => setSelectedOrder(order)}
+                                            className="bg-white dark:bg-gray-800 p-6 rounded-[2.5rem] border border-gray-100 dark:border-gray-700 shadow-xl shadow-blue-500/5 flex flex-col sm:flex-row sm:items-center justify-between gap-6 group hover:border-[#028dfe]/40 transition-all cursor-pointer relative overflow-hidden active:scale-[0.98]"
+                                        >
+                                            <div className="flex items-center gap-6 relative z-10">
+                                                <div className="w-16 h-16 bg-gray-50 dark:bg-gray-900/50 rounded-2xl flex items-center justify-center text-[#028dfe] group-hover:scale-110 transition-transform">
+                                                    <Package className="w-7 h-7" />
                                                 </div>
-                                                <div className="min-w-0 flex-1">
-                                                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                                                        <span className="font-bold text-gray-900 dark:text-white truncate">Pedido #{order.id}</span>
-                                                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 ${order.status === 'Entregue'
-                                                            ? 'bg-green-50 dark:bg-green-900/40 text-green-600 dark:text-green-400'
-                                                            : 'bg-orange-50 dark:bg-orange-900/40 text-orange-600 dark:text-orange-400'
+                                                <div>
+                                                    <div className="flex items-center gap-3 mb-1">
+                                                        <span className="text-lg font-black text-gray-900 dark:text-white tracking-tight">Pedido #{order.id}</span>
+                                                        <span className={`text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full ${order.status === 'Entregue'
+                                                            ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400'
+                                                            : 'bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400'
                                                             }`}>
                                                             {order.status}
                                                         </span>
                                                     </div>
-                                                    <p className="text-[10px] sm:text-xs text-gray-400 truncate mt-0.5">
-                                                        {new Date(order.createdAt).toLocaleDateString('pt-AO', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                                                    </p>
+                                                    <div className="flex items-center gap-3 text-xs text-gray-400 font-bold">
+                                                        <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" /> {new Date(order.createdAt).toLocaleDateString('pt-AO')}</span>
+                                                        <div className="w-1.5 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                                                        <span className="flex items-center gap-1.5"><ShoppingBag className="w-3.5 h-3.5" /> {order.items?.length || 0} Itens</span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div className="text-left sm:text-right relative z-10 shrink-0 sm:pl-0 pl-13 flex flex-row sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-2">
-                                                <p className="text-base sm:text-lg font-black text-gray-900 dark:text-white">{formatPrice(order.total_price)}</p>
-                                                <button
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        setSelectedOrder(order);
-                                                    }}
-                                                    className="text-xs font-bold text-[#008cff] sm:opacity-0 group-hover:opacity-100 transition-all transform sm:translate-x-2 group-hover:translate-x-0 bg-blue-50 sm:bg-transparent dark:bg-blue-900/20 px-2 py-1 rounded-lg sm:p-0"
-                                                >
-                                                    Ver Detalhes
-                                                </button>
+
+                                            <div className="flex items-center justify-between sm:flex-col sm:items-end gap-3 self-end sm:self-center pr-2">
+                                                <p className="text-xl font-black text-[#028dfe] tracking-tight">{formatPrice(order.total_price)}</p>
+                                                <div className="bg-[#028dfe]/5 text-[#028dfe] p-2 rounded-xl sm:opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
+                                                    <ChevronRight className="w-5 h-5" />
+                                                </div>
                                             </div>
                                         </div>
                                     ))}
 
-                                    {/* Pagination Controls */}
+                                    {/* Pagination Controls - Modernized */}
                                     {pagination && pagination.total_pages > 1 && (
-                                        <div className="flex items-center justify-center gap-4 pt-6 pb-2">
+                                        <div className="flex items-center justify-center gap-6 pt-10">
                                             <button
                                                 onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
                                                 disabled={currentPage === 1 || isLoadingOrders}
-                                                className="p-2.5 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-600 dark:text-gray-400 disabled:opacity-30 disabled:cursor-not-allowed hover:border-[#008cff] hover:text-[#008cff] transition-all active:scale-95"
+                                                className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-400 disabled:opacity-20 hover:text-[#028dfe] hover:shadow-lg transition-all"
                                             >
-                                                <ChevronLeft className="w-5 h-5" />
+                                                <ChevronLeft className="w-6 h-6" />
                                             </button>
 
-                                            <div className="flex items-center gap-1.5 font-bold text-sm">
-                                                <span className="w-8 h-8 flex items-center justify-center rounded-xl bg-[#008cff] text-white shadow-lg shadow-[#008cff]/20">
+                                            <div className="flex items-center gap-3">
+                                                <span className="w-12 h-12 flex items-center justify-center rounded-2xl bg-[#028dfe] text-white font-black shadow-xl shadow-blue-500/30">
                                                     {currentPage}
                                                 </span>
-                                                <span className="text-gray-400 px-1">de</span>
-                                                <span className="w-8 h-8 flex items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                                                <span className="text-gray-400 font-black text-xs uppercase tracking-widest px-2">de</span>
+                                                <span className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-400 font-black">
                                                     {pagination.total_pages}
                                                 </span>
                                             </div>
@@ -333,9 +352,9 @@ function Profile() {
                                             <button
                                                 onClick={() => setCurrentPage(prev => Math.min(pagination.total_pages, prev + 1))}
                                                 disabled={currentPage === pagination.total_pages || isLoadingOrders}
-                                                className="p-2.5 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-600 dark:text-gray-400 disabled:opacity-30 disabled:cursor-not-allowed hover:border-[#008cff] hover:text-[#008cff] transition-all active:scale-95"
+                                                className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-400 disabled:opacity-20 hover:text-[#028dfe] hover:shadow-lg transition-all"
                                             >
-                                                <ChevronRight className="w-5 h-5" />
+                                                <ChevronRight className="w-6 h-6" />
                                             </button>
                                         </div>
                                     )}
@@ -344,55 +363,53 @@ function Profile() {
                         </>
                     ) : (
                         <>
-                            <h2 className="text-xl font-bold text-gray-900 dark:text-white px-2 flex items-center gap-2">
-                                <MapPin className="w-5 h-5" /> Meus Endereços
-                            </h2>
+                            <div className="flex items-center justify-between px-4">
+                                <h2 className="text-2xl font-black text-gray-900 dark:text-white flex items-center gap-3 tracking-tight">
+                                    Meus Endereços
+                                </h2>
+                                <button
+                                    className="bg-blue-50 dark:bg-blue-900/20 text-[#028dfe] text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-full border border-blue-100 dark:border-blue-800 hover:bg-[#028dfe] hover:text-white transition-all shadow-lg active:scale-95"
+                                >
+                                    Adicionar
+                                </button>
+                            </div>
 
                             {isLoadingAddresses ? (
-                                <div className="flex flex-col items-center justify-center min-h-[200px] text-gray-400">
-                                    <Loader2 className="w-8 h-8 animate-spin mb-2 text-[#008cff]" />
-                                    <p className="text-sm">Carregando endereços...</p>
+                                <div className="flex flex-col items-center justify-center min-h-[300px]">
+                                    <div className="w-12 h-12 border-4 border-blue-50 rounded-full animate-spin border-t-[#028dfe]"></div>
                                 </div>
                             ) : addresses.length === 0 ? (
-                                <div className="bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-12 border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col items-center justify-center text-center min-h-[400px] transition-all">
-                                    <div className="w-24 h-24 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center mb-6 shadow-lg border-4 border-[#008cff]/10">
-                                        <Home className="w-12 h-12 text-[#008cff]" />
+                                <div className="bg-white dark:bg-gray-800 rounded-[3rem] p-16 border border-gray-100 dark:border-gray-700 shadow-xl shadow-blue-500/5 flex flex-col items-center text-center transition-all">
+                                    <div className="w-24 h-24 bg-gray-50 dark:bg-gray-900/50 rounded-full flex items-center justify-center mb-8">
+                                        <Home className="w-10 h-10 text-gray-300" />
                                     </div>
-                                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                                        Nenhum endereço cadastrado
-                                    </h3>
-                                    <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-md">
-                                        Adicione um endereço para facilitar suas compras e entregas futuras.
-                                    </p>
+                                    <h3 className="text-2xl font-black text-gray-900 dark:text-white mb-4 tracking-tight">Nenhum endereço</h3>
+                                    <p className="text-gray-500 dark:text-gray-400 mb-10 max-w-sm font-medium">Cadastra um endereço para acelerar as tuas entregas.</p>
                                     <button
-                                        className="bg-[#008cff] text-white px-8 py-4 rounded-2xl font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center gap-2"
+                                        className="bg-[#028dfe] text-white px-10 py-5 rounded-4xl font-black shadow-lg shadow-blue-500/30 hover:scale-105 active:scale-95 transition-all text-xs uppercase tracking-widest"
                                     >
-                                        <MapPin className="w-5 h-5" />
-                                        Adicionar Endereço
+                                        Novo Endereço
                                     </button>
                                 </div>
                             ) : (
-                                (addresses as Address[]).map((address: Address) => (
-                                    <div key={address.id} className="bg-white dark:bg-gray-800 p-6 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-sm group hover:border-[#008cff]/30 transition-all">
-                                        <div className="flex items-center justify-between">
-                                            <div className="flex items-center gap-4 flex-1">
-                                                <div className="w-12 h-12 bg-gray-50 dark:bg-gray-900 rounded-2xl flex items-center justify-center text-[#008cff] shrink-0">
-                                                    <MapPin className="w-6 h-6" />
-                                                </div>
-
-                                                <div className="flex-1">
-                                                    <span className="font-semibold text-sm text-left text-gray-900 dark:text-white line-clamp-1">{address.name}</span>
-                                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {(addresses as Address[]).map((address: Address) => (
+                                        <div key={address.id} className="bg-white dark:bg-gray-800 p-8 rounded-[2.5rem] border border-gray-100 dark:border-gray-700 shadow-xl shadow-blue-500/5 group hover:border-[#028dfe]/40 transition-all flex items-center gap-6">
+                                            <div className="w-14 h-14 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center text-[#028dfe] shrink-0">
+                                                <MapPin className="w-6 h-6" />
                                             </div>
-
-                                            <button className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-xl transition-all"
+                                            <div className="flex-1 min-w-0">
+                                                <span className="font-black text-gray-900 dark:text-white truncate block">{address.name}</span>
+                                            </div>
+                                            <button
+                                                className="w-10 h-10 flex items-center justify-center text-gray-300 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-xl transition-all"
                                                 onClick={() => handleDeleteAddress(address.id)}
                                             >
                                                 <Trash2 className="w-5 h-5" />
                                             </button>
                                         </div>
-                                    </div>
-                                ))
+                                    ))}
+                                </div>
                             )}
                         </>
                     )}
@@ -402,52 +419,52 @@ function Profile() {
             {/* Order Details Modal */}
             {
                 selectedOrder && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
-                        <div className="bg-white dark:bg-gray-800 rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl animate-in zoom-in-95 duration-200">
-                            <div className="sticky top-0 bg-white dark:bg-gray-800 p-6 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between z-10">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in duration-300">
+                        <div className="bg-white dark:bg-gray-800 rounded-[2.5rem] w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl animate-in zoom-in-95 duration-300">
+                            <div className="sticky top-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl p-8 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between z-10">
                                 <div>
-                                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">Detalhes do Pedido</h3>
-                                    <p className="text-sm text-gray-500">#{selectedOrder.public_id || selectedOrder.id}</p>
+                                    <h3 className="text-2xl font-black text-gray-900 dark:text-white tracking-tight">Detalhes do Pedido</h3>
+                                    <p className="text-sm text-gray-400 font-bold uppercase tracking-widest mt-1">#{selectedOrder.public_id || selectedOrder.id}</p>
                                 </div>
                                 <button
                                     onClick={() => setSelectedOrder(null)}
-                                    className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
+                                    className="p-3 bg-gray-50 dark:bg-gray-700/50 text-gray-400 hover:text-red-500 rounded-2xl transition-all active:scale-90"
                                 >
-                                    <X className="w-6 h-6 text-gray-500" />
+                                    <X className="w-6 h-6" />
                                 </button>
                             </div>
 
-                            <div className="p-6 space-y-8">
+                            <div className="p-8 space-y-10">
                                 {/* Order Info Stats */}
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                    <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-2xl">
-                                        <Calendar className="w-5 h-5 text-[#008cff] mb-2" />
-                                        <p className="text-xs text-gray-500 mb-1">Data</p>
-                                        <p className="text-sm font-bold text-gray-900 dark:text-white truncate">
-                                            {new Date(selectedOrder.createdAt).toLocaleDateString()}
+                                    <div className="p-5 bg-gray-50 dark:bg-gray-900/50 rounded-3xl border border-gray-100 dark:border-gray-800">
+                                        <Calendar className="w-5 h-5 text-[#028dfe] mb-3" />
+                                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">Data</p>
+                                        <p className="text-sm font-black text-gray-900 dark:text-white">
+                                            {new Date(selectedOrder.createdAt).toLocaleDateString('pt-AO')}
                                         </p>
                                     </div>
-                                    <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-2xl">
-                                        <CreditCard className="w-5 h-5 text-[#008cff] mb-2" />
-                                        <p className="text-xs text-gray-500 mb-1">Total</p>
-                                        <p className="text-sm font-bold text-gray-900 dark:text-white">
+                                    <div className="p-5 bg-gray-50 dark:bg-gray-900/50 rounded-3xl border border-gray-100 dark:border-gray-800">
+                                        <CreditCard className="w-5 h-5 text-[#028dfe] mb-3" />
+                                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">Total</p>
+                                        <p className="text-sm font-black text-[#028dfe]">
                                             {formatPrice(selectedOrder.total_price)}
                                         </p>
                                     </div>
-                                    <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-2xl">
-                                        <Package className="w-5 h-5 text-[#008cff] mb-2" />
-                                        <p className="text-xs text-gray-500 mb-1">Status</p>
-                                        <span className={`text-xs font-bold px-2 py-0.5 rounded-full inline-block ${selectedOrder.status === 'Entregue'
-                                            ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                                            : 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400'
+                                    <div className="p-5 bg-gray-50 dark:bg-gray-900/50 rounded-3xl border border-gray-100 dark:border-gray-800">
+                                        <Package className="w-5 h-5 text-[#028dfe] mb-3" />
+                                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">Status</p>
+                                        <span className={`text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full ${selectedOrder.status === 'Entregue'
+                                            ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400'
+                                            : 'bg-amber-50 text-amber-600 dark:bg-amber-900/20 dark:text-amber-400'
                                             }`}>
                                             {selectedOrder.status}
                                         </span>
                                     </div>
-                                    <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-2xl">
-                                        <Phone className="w-5 h-5 text-[#008cff] mb-2" />
-                                        <p className="text-xs text-gray-500 mb-1">Contato</p>
-                                        <p className="text-sm font-bold text-gray-900 dark:text-white truncate">
+                                    <div className="p-5 bg-gray-50 dark:bg-gray-900/50 rounded-3xl border border-gray-100 dark:border-gray-800">
+                                        <Phone className="w-5 h-5 text-[#028dfe] mb-3" />
+                                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">Contato</p>
+                                        <p className="text-sm font-black text-gray-900 dark:text-white truncate">
                                             {selectedOrder.phone_number}
                                         </p>
                                     </div>
@@ -455,31 +472,33 @@ function Profile() {
 
                                 {/* Items List */}
                                 <div>
-                                    <h4 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-4">Itens do Pedido</h4>
+                                    <h4 className="text-xs font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] mb-6 flex items-center gap-3">
+                                        Itens do Pedido <div className="h-px flex-1 bg-gray-100 dark:bg-gray-800"></div>
+                                    </h4>
                                     <div className="space-y-4">
                                         {selectedOrder.items.map((item: any) => (
-                                            <div key={item.id} className="flex gap-4 p-4 rounded-2xl border border-gray-100 dark:border-gray-700 hover:border-[#008cff]/20 transition-colors">
-                                                <div className="w-20 h-20 bg-gray-100 dark:bg-gray-900 rounded-xl overflow-hidden shrink-0">
+                                            <div key={item.id} className="flex gap-6 p-5 rounded-4xl border border-gray-100 dark:border-gray-700 hover:border-[#028dfe]/30 transition-all group">
+                                                <div className="w-24 h-24 bg-gray-50 dark:bg-gray-900/50 rounded-2xl overflow-hidden shrink-0 ring-1 ring-gray-100 dark:ring-gray-800 group-hover:ring-[#028dfe]/30 transition-all">
                                                     <img
                                                         src={`${BASE_URL}/${item.image}`}
                                                         alt={item.name}
-                                                        className="w-full h-full object-cover"
+                                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                                     />
                                                 </div>
-                                                <div className="flex-1 min-w-0">
+                                                <div className="flex-1 min-w-0 flex flex-col justify-center">
                                                     <div className="flex justify-between items-start gap-4">
                                                         <div>
-                                                            <p className="text-xs text-[#008cff] font-bold mb-1">{item.category}</p>
-                                                            <h5 className="font-bold text-gray-900 dark:text-white line-clamp-2">{item.name}</h5>
+                                                            <p className="text-[10px] text-[#028dfe] font-black uppercase tracking-widest mb-1.5">{item.category}</p>
+                                                            <h5 className="text-lg font-black text-gray-900 dark:text-white line-clamp-1 tracking-tight">{item.name}</h5>
                                                         </div>
-                                                        <p className="font-bold text-gray-900 dark:text-white whitespace-nowrap">
-                                                            {formatPrice(item.price)}
-                                                        </p>
-                                                    </div>
-                                                    <div className="flex items-center gap-4 mt-2">
-                                                        <span className="text-xs text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-lg">
-                                                            Qtd: {item.quantity}
-                                                        </span>
+                                                        <div className="text-right">
+                                                            <p className="text-lg font-black text-gray-900 dark:text-white tracking-tight">
+                                                                {formatPrice(item.price)}
+                                                            </p>
+                                                            <span className="text-[11px] font-bold text-gray-400 bg-gray-50 dark:bg-gray-900/50 px-3 py-1.5 rounded-xl">
+                                                                Qtd: {item.quantity}
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -488,18 +507,21 @@ function Profile() {
                                 </div>
 
                                 {/* Order Summary */}
-                                <div className="bg-gray-50 dark:bg-gray-700/30 rounded-2xl p-6">
-                                    <div className="flex justify-between items-center mb-2">
-                                        <span className="text-gray-500">Subtotal</span>
-                                        <span className="font-bold text-gray-900 dark:text-white">{formatPrice(selectedOrder.total_price)}</span>
-                                    </div>
-                                    <div className="flex justify-between items-center mb-4">
-                                        <span className="text-gray-500">Frete</span>
-                                        <span className="text-green-500 font-bold">Grátis</span>
-                                    </div>
-                                    <div className="border-t border-gray-200 dark:border-gray-600 pt-4 flex justify-between items-center">
-                                        <span className="font-bold text-lg text-gray-900 dark:text-white">Total</span>
-                                        <span className="font-bold text-xl text-[#008cff]">{formatPrice(selectedOrder.total_price)}</span>
+                                <div className="bg-gray-50 dark:bg-gray-900/30 rounded-[2.5rem] p-8 border border-gray-100 dark:border-gray-800">
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-gray-500 font-medium">Subtotal</span>
+                                            <span className="font-black text-gray-900 dark:text-white">{formatPrice(selectedOrder.total_price)}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-gray-500 font-medium">Portes de Envio</span>
+                                            <span className="text-emerald-500 font-black uppercase text-[10px] tracking-widest bg-emerald-50 dark:bg-emerald-900/20 px-3 py-1.5 rounded-full">Grátis</span>
+                                        </div>
+                                        <div className="h-px bg-gray-200 dark:bg-gray-700 my-2"></div>
+                                        <div className="flex justify-between items-center">
+                                            <span className="font-black text-xl text-gray-900 dark:text-white tracking-tight">Total Final</span>
+                                            <span className="font-black text-2xl text-[#028dfe] tracking-tight">{formatPrice(selectedOrder.total_price)}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -512,23 +534,23 @@ function Profile() {
             {
                 isEditingProfile && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in duration-300">
-                        <div className="bg-white dark:bg-gray-800 rounded-[2.5rem] w-full max-w-md overflow-hidden shadow-2xl animate-in zoom-in-95 duration-300">
-                            <div className="p-8">
-                                <div className="flex justify-between items-center mb-8">
-                                    <h3 className="text-2xl font-black text-gray-900 dark:text-white">Editar Perfil</h3>
+                        <div className="bg-white dark:bg-gray-800 rounded-[3rem] w-full max-w-md overflow-hidden shadow-2xl animate-in zoom-in-95 duration-300">
+                            <div className="p-10">
+                                <div className="flex justify-between items-center mb-10">
+                                    <h3 className="text-2xl font-black text-gray-900 dark:text-white tracking-tight">Editar Perfil</h3>
                                     <button
                                         onClick={() => setIsEditingProfile(false)}
-                                        className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
+                                        className="p-3 bg-gray-50 dark:bg-gray-700/50 text-gray-400 hover:text-[#028dfe] rounded-2xl transition-all active:scale-90"
                                     >
-                                        <X className="w-6 h-6 text-gray-400" />
+                                        <X className="w-6 h-6" />
                                     </button>
                                 </div>
 
-                                <form onSubmit={handleUpdateProfile} className="space-y-6">
+                                <form onSubmit={handleUpdateProfile} className="space-y-8">
                                     {/* Avatar Upload */}
-                                    <div className="flex flex-col items-center gap-4 mb-6">
+                                    <div className="flex flex-col items-center gap-4">
                                         <div className="relative group">
-                                            <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-[#008cff]/20 flex items-center justify-center bg-gray-100 dark:bg-gray-700">
+                                            <div className="w-32 h-32 rounded-full overflow-hidden ring-4 ring-blue-50 dark:ring-blue-900/20 flex items-center justify-center bg-gray-100 dark:bg-gray-700 shadow-xl">
                                                 {editForm.avatar ? (
                                                     <img
                                                         src={URL.createObjectURL(editForm.avatar)}
@@ -542,50 +564,53 @@ function Profile() {
                                                         className="w-full h-full object-cover"
                                                     />
                                                 ) : (
-                                                    <UserIcon className="w-12 h-12 text-gray-400" />
+                                                    <div className="w-full h-full bg-linear-to-br from-[#028dfe] to-blue-600 flex items-center justify-center text-white text-4xl font-black uppercase">
+                                                        {user?.name.charAt(0)}
+                                                    </div>
                                                 )}
+
+                                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer">
+                                                    <Camera className="w-8 h-8 text-white" />
+                                                </div>
                                             </div>
-                                            <label className="absolute inset-0 flex items-center justify-center bg-black/40 text-white rounded-full opacity-0 group-hover:opacity-100 cursor-pointer transition-opacity">
-                                                <Camera className="w-6 h-6" />
-                                                <input
-                                                    type="file"
-                                                    className="hidden"
-                                                    accept="image/*"
-                                                    onChange={(e) => {
-                                                        const file = e.target.files?.[0];
-                                                        if (file) setEditForm({ ...editForm, avatar: file });
-                                                    }}
-                                                />
-                                            </label>
+                                            <input
+                                                type="file"
+                                                className="absolute inset-0 opacity-0 cursor-pointer"
+                                                accept="image/*"
+                                                onChange={(e) => {
+                                                    const file = e.target.files?.[0];
+                                                    if (file) setEditForm({ ...editForm, avatar: file });
+                                                }}
+                                            />
                                         </div>
-                                        <p className="text-xs text-gray-400">Toque na imagem para mudar</p>
+                                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Toque para alterar imagem</p>
                                     </div>
 
-                                    <div className="space-y-4">
+                                    <div className="space-y-6">
                                         <div>
-                                            <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Nome Completo</label>
-                                            <div className="relative">
-                                                <UserIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                                            <label className="block text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] mb-3 ml-1">Nome Completo</label>
+                                            <div className="relative group">
+                                                <UserIcon className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-[#028dfe] transition-colors" />
                                                 <input
                                                     type="text"
                                                     value={editForm.name}
                                                     onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
-                                                    className="w-full bg-gray-50 dark:bg-gray-900/50 border-none rounded-2xl py-4 pl-12 pr-4 focus:ring-2 focus:ring-[#008cff] outline-none text-gray-900 dark:text-white font-medium"
-                                                    placeholder="Seu nome"
+                                                    className="w-full bg-gray-50 dark:bg-gray-900/50 border border-transparent focus:border-[#028dfe]/20 rounded-2xl py-5 pl-14 pr-6 focus:ring-4 focus:ring-[#028dfe]/5 outline-none text-gray-900 dark:text-white font-bold transition-all"
+                                                    placeholder="O teu nome"
                                                 />
                                             </div>
                                         </div>
 
                                         <div>
-                                            <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Telefone (WhatsApp)</label>
-                                            <div className="relative">
-                                                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                                            <label className="block text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] mb-3 ml-1">Telefone / WhatsApp</label>
+                                            <div className="relative group">
+                                                <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-[#028dfe] transition-colors" />
                                                 <input
                                                     type="tel"
                                                     value={editForm.phone}
                                                     onChange={(e) => setEditForm({ ...editForm, phone: e.target.value })}
-                                                    className="w-full bg-gray-50 dark:bg-gray-900/50 border-none rounded-2xl py-4 pl-12 pr-4 focus:ring-2 focus:ring-[#008cff] outline-none text-gray-900 dark:text-white font-medium"
-                                                    placeholder="900 000 000"
+                                                    className="w-full bg-gray-50 dark:bg-gray-900/50 border border-transparent focus:border-[#028dfe]/20 rounded-2xl py-5 pl-14 pr-6 focus:ring-4 focus:ring-[#028dfe]/5 outline-none text-gray-900 dark:text-white font-bold transition-all"
+                                                    placeholder="9XX XXX XXX"
                                                 />
                                             </div>
                                         </div>
@@ -594,12 +619,15 @@ function Profile() {
                                     <button
                                         type="submit"
                                         disabled={isUpdating}
-                                        className="w-full bg-[#008cff] text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-[#007ad6] transition-all active:scale-95 disabled:opacity-50 shadow-lg shadow-[#008cff]/20 mt-8"
+                                        className="w-full bg-[#028dfe] text-white py-5 rounded-4xl font-black uppercase tracking-[0.2em] text-xs flex items-center justify-center gap-3 hover:bg-blue-600 transition-all active:scale-95 disabled:opacity-50 shadow-2xl shadow-blue-500/30 mt-4"
                                     >
                                         {isUpdating ? (
                                             <Loader2 className="w-5 h-5 animate-spin" />
                                         ) : (
-                                            'Salvar Alterações'
+                                            <>
+                                                <span>Salvar Dados</span>
+                                                <ShieldCheck className="w-5 h-5" />
+                                            </>
                                         )}
                                     </button>
                                 </form>
