@@ -5,6 +5,17 @@ import tailwindcss from '@tailwindcss/vite';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(),
-    tailwindcss(),
+  tailwindcss(),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-utils': ['axios', 'leaflet', 'lucide-react', 'react-helmet-async'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
+  },
 })

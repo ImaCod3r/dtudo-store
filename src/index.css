@@ -1,5 +1,19 @@
 @import "tailwindcss";
 
+/* Force light mode and disable media-query dark mode */
+@variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+  --background: #ffffff;
+  --foreground: #000000;
+}
+
+html, body {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
 @keyframes slide-in-right {
   from {
     transform: translateX(100%);
