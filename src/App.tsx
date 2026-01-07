@@ -30,14 +30,17 @@ import Shipping from './pages/Shipping';
 import Returns from './pages/Returns';
 import FAQ from './pages/FAQ';
 import Contact from './pages/Contact';
+import NotFound from './pages/NotFound';
 import PhoneAlert from './components/PhoneAlert';
 import PushNotificationDialog from './components/PushNotificationDialog';
 import { InstallPrompt } from './components/InstallPrompt';
+import { WhatsAppButton } from './components/WhatsAppButton';
 
 function App() {
   const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
   return (
     <>
+      <WhatsAppButton />
       <InstallPrompt />
       <PushNotificationDialog />
       <AuthProvider>
@@ -74,6 +77,7 @@ function App() {
                             <Route path="/devolucoes" element={<Returns />} />
                             <Route path="/faq" element={<FAQ />} />
                             <Route path="/contato" element={<Contact />} />
+                            <Route path="*" element={<NotFound />} />
                           </Routes>
                         </main>
                         <Footer />
