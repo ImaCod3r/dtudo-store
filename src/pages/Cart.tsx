@@ -9,11 +9,10 @@ import { BASE_URL } from '../api/axios';
 import Back from '../components/Back';
 
 function Cart() {
-    const { cart, removeFromCart, updateQuantity, subtotal, cartId } = useCart();
+    const { cart, removeFromCart, updateQuantity, subtotal } = useCart();
     const navigate = useNavigate();
-    const shipping = 1500.00;
-    const tax = subtotal * 0.1;
-    const total = subtotal + shipping + tax;
+    const shipping = 2000.00;
+    const total = subtotal + shipping;
 
     if (cart.length === 0) {
         return (
@@ -90,10 +89,6 @@ function Cart() {
                             <div className="flex justify-between text-gray-500">
                                 <span>Frete</span>
                                 <span className="text-gray-900 dark:text-white font-semibold">{formatPrice(shipping)}</span>
-                            </div>
-                            <div className="flex justify-between text-gray-500">
-                                <span>Imposto Estimado</span>
-                                <span className="text-gray-900 dark:text-white font-semibold">{formatPrice(tax)}</span>
                             </div>
                             <div className="pt-4 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
                                 <span className="text-lg font-bold text-gray-900 dark:text-white">Total</span>

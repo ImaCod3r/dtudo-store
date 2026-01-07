@@ -56,7 +56,7 @@ function Checkout() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [filteredSuggestions, setFilteredSuggestions] = useState<Address[]>([]);
 
-  const total = subtotal + 1500 + (subtotal * 0.1);
+  const total = subtotal + 2000;
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -69,6 +69,7 @@ function Checkout() {
       address: address!,
       phone: user.phone!,
       total_price: total,
+      shipping_fee: 2000,
     }
 
     try {
@@ -461,7 +462,7 @@ function Checkout() {
               </div>
               <div className="flex justify-between text-sm text-gray-500">
                 <span>Frete</span>
-                <span>Kz 1.500</span>
+                <span>Kz 2.000</span>
               </div>
               <div className="flex justify-between text-lg font-bold text-gray-900 dark:text-white pt-3">
                 <span>Total</span>

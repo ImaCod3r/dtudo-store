@@ -511,11 +511,15 @@ function Profile() {
                                     <div className="space-y-4">
                                         <div className="flex justify-between items-center">
                                             <span className="text-gray-500 font-medium">Subtotal</span>
-                                            <span className="font-black text-gray-900 dark:text-white">{formatPrice(selectedOrder.total_price)}</span>
+                                            <span className="font-black text-gray-900 dark:text-white">
+                                                {formatPrice(selectedOrder.total_price - (selectedOrder.shipping_fee || 2000))}
+                                            </span>
                                         </div>
                                         <div className="flex justify-between items-center">
                                             <span className="text-gray-500 font-medium">Portes de Envio</span>
-                                            <span className="text-emerald-500 font-black uppercase text-[10px] tracking-widest bg-emerald-50 dark:bg-emerald-900/20 px-3 py-1.5 rounded-full">Grátis</span>
+                                            <span className="text-[#028dfe] font-black">
+                                                {formatPrice(selectedOrder.shipping_fee || 2000)}
+                                            </span>
                                         </div>
                                         <div className="h-px bg-gray-200 dark:bg-gray-700 my-2"></div>
                                         <div className="flex justify-between items-center">

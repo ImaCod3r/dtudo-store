@@ -55,6 +55,7 @@ export interface Order {
   address_id: number;
   phone_number: string;
   total_price: number;
+  shipping_fee?: number;
   items: OrderItem[];
   createdAt: string;
   status: string;
