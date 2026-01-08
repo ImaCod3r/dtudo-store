@@ -41,7 +41,7 @@ function News() {
     };
 
     return (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 pt-10">
+        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 pb-20 pt-10">
             <div className="flex flex-col md:flex-row items-start justify-between mb-12 gap-6">
                 <div className="text-left">
                     <div className="flex items-center gap-2 text-[#028DFE] font-black uppercase tracking-widest text-sm mb-2">
@@ -90,8 +90,8 @@ function News() {
                                         key={page}
                                         onClick={() => handlePageChange(page)}
                                         className={`w-10 h-10 rounded-xl text-xs font-bold flex items-center justify-center transition-all ${page === currentPage
-                                                ? 'bg-[#008cff] text-white shadow-lg shadow-blue-500/20'
-                                                : 'text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                                            ? 'bg-[#008cff] text-white shadow-lg shadow-blue-500/20'
+                                            : 'text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
                                             }`}
                                     >
                                         {page}

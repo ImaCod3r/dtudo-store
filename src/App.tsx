@@ -72,7 +72,7 @@ function App() {
                         <>
                           <PhoneAlert />
                           <Header />
-                          <main className="pt-40 md:pt-52">
+                          <main className="pt-32 md:pt-52">
                             <Routes>
                               <Route path="/profile" element={<Profile />} />
                               <Route path="/" element={<Home />} />

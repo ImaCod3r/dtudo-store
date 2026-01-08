@@ -15,7 +15,7 @@ function ProductCard({ product }: ProductCardProps) {
     const { addToCart } = useCart();
 
     return (
-        <div className="group bg-white dark:bg-gray-900 rounded-4xl border border-gray-100 dark:border-gray-800 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col h-full relative">
+        <div className="group bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col h-full relative">
             <Link to={`/produto/${product.public_id}`} className="relative block overflow-hidden aspect-square">
                 <img
                     src={product.image_url.startsWith('http') ? product.image_url : `${BASE_URL}/${product.image_url}`}
@@ -24,7 +24,7 @@ function ProductCard({ product }: ProductCardProps) {
                 />
             </Link>
 
-            <div className="p-6 flex flex-col flex-1">
+            <div className="p-3 sm:p-6 flex flex-col flex-1">
                 <div className="mb-4 text-left">
                     <Link to={`/produto/${product.public_id}`}>
                         <h3 className="text-xl font-bold text-gray-900 dark:text-white line-clamp-2 leading-tight mb-1">

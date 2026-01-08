@@ -184,7 +184,7 @@ function Affiliates() {
 
     if (user && !isApproved && !isPending) {
         return (
-            <div className="max-w-6xl mx-auto px-4 py-12">
+            <div className="max-w-6xl mx-auto px-2 py-12">
                 <SEO title="Programa de Afiliados - Dtudo Shop" />
                 <Back />
                 <div className="bg-linear-to-br from-[#028dfe] to-blue-700 rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-12 text-white relative overflow-hidden mb-8 md:mb-12 shadow-2xl shadow-blue-500/20">

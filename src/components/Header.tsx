@@ -168,7 +168,7 @@ function Header() {
         >
             {/* Top Bar */}
             <div className="bg-[#028DFE] text-white py-2">
-                <div className="container mx-auto px-4 flex justify-between items-center text-sm">
+                <div className="container mx-auto px-2 sm:px-4 flex justify-between items-center text-sm">
                     <div className="flex items-center gap-6">
                         <span className="hidden md:inline-flex items-center gap-2">
                             <Phone className="w-4 h-4" />
@@ -186,7 +186,7 @@ function Header() {
             </div>
 
             {/* Main Header */}
-            <div className="container mx-auto px-4 sm:px-6 py-3 lg:py-5">
+            <div className="container mx-auto px-2 sm:px-6 py-3 lg:py-5">
                 <div className="flex items-center justify-between gap-4 lg:gap-8">
                     {/* Menu Toggle - Mobile */}
                     <button
@@ -399,7 +399,7 @@ function Header() {
             {isMenuOpen && (
                 <div className="md:hidden bg-white border-t border-gray-200 animate-slideDown">
                     {/* Mobile Search */}
-                    <div className="px-4 py-4 border-b border-gray-200">
+                    <div className="px-2 py-4 border-b border-gray-200">
                         <form onSubmit={handleSearch}>
                             <div className="relative">
                                 <input

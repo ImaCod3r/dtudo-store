@@ -162,7 +162,7 @@ function Home() {
     };
 
     return (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 pt-6">
+        <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 pb-20 pt-6">
             <SEO title={pageTitle} />
             {/* Breadcrumbs */}
             {(categorySlug || searchTerm) && (
@@ -191,7 +191,7 @@ function Home() {
 
             <div className="w-full">
                 <main className="w-full">
-                    <div className="flex items-center justify-between mb-10 px-1">
+                    <div className="flex items-center justify-between mb-6 sm:mb-10 px-1">
                         <h2 className="text-2xl font-black text-gray-900 dark:text-white tracking-tight">
                             {pageTitle}
                         </h2>
@@ -213,7 +213,7 @@ function Home() {
                             ))}
                         </div>
                     ) : (
-                        <div className="flex flex-col items-center justify-center py-20 bg-white dark:bg-gray-800 rounded-[2.5rem] border-2 border-dashed border-gray-100 dark:border-gray-700">
+                        <div className="flex flex-col items-center justify-center py-20 bg-white dark:bg-gray-800 rounded-3xl border-2 border-dashed border-gray-100 dark:border-gray-700">
                             <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
                                 <Search className="w-8 h-8 text-gray-300" />
                             </div>

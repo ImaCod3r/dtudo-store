@@ -1,8 +1,6 @@
+/* Removed default Vite #root styles to allow full-width layout and custom container control */
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
 }
 
 .logo {

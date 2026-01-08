@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Footer() {
     return (
         <footer className="bg-white  border-t border-gray-100 py-12 mt-10">
-            <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 sm:gap-8 transition-colors duration-300">
+            <div className="max-w-7xl mx-auto px-2 sm:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 sm:gap-8 transition-colors duration-300">
                 <div className="col-span-1 sm:col-span-2 lg:col-span-1">
                     <Logo />
                     <p className="text-gray-500 dark:text-gray-400 mt-4 text-left font-medium max-w-sm mb-6 leading-relaxed">

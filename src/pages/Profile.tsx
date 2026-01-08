@@ -151,9 +151,9 @@ function Profile() {
     }
 
     return (
-        <div className="max-w-5xl mx-auto px-4 py-12">
+        <div className="max-w-5xl mx-auto px-2 py-12">
             {/* User Header - Modernized */}
-            <div className="bg-white dark:bg-gray-800 rounded-[2.5rem] p-8 sm:p-10 border border-gray-100 dark:border-gray-700 shadow-xl shadow-blue-500/5 flex flex-col md:flex-row items-center gap-10 mb-12 relative overflow-hidden transition-all duration-300">
+            <div className="bg-white dark:bg-gray-800 rounded-[2.5rem] p-4 sm:p-10 border border-gray-100 dark:border-gray-700 shadow-xl shadow-blue-500/5 flex flex-col md:flex-row items-center gap-10 mb-12 relative overflow-hidden transition-all duration-300">
                 {/* Decorative Background Element */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50/50 dark:bg-blue-900/5 rounded-full -mr-32 -mt-32 blur-3xl opacity-50"></div>
 
@@ -221,7 +221,7 @@ function Profile() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
                 {/* Profile Sidebar */}
                 <div className="lg:col-span-4 space-y-6">
-                    <div className="bg-white dark:bg-gray-800 rounded-[2.5rem] p-8 border border-gray-100 dark:border-gray-700 shadow-xl shadow-blue-500/5">
+                    <div className="bg-white dark:bg-gray-800 rounded-[2.5rem] p-4 sm:p-8 border border-gray-100 dark:border-gray-700 shadow-xl shadow-blue-500/5">
                         <h3 className="text-sm font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] mb-8 ml-2">Minha Conta</h3>
                         <nav className="space-y-2">
                             <button
@@ -295,7 +295,7 @@ function Profile() {
                                         <div
                                             key={order.id}
                                             onClick={() => setSelectedOrder(order)}
-                                            className="bg-white dark:bg-gray-800 p-6 rounded-[2.5rem] border border-gray-100 dark:border-gray-700 shadow-xl shadow-blue-500/5 flex flex-col sm:flex-row sm:items-center justify-between gap-6 group hover:border-[#028dfe]/40 transition-all cursor-pointer relative overflow-hidden active:scale-[0.98]"
+                                            className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-[2.5rem] border border-gray-100 dark:border-gray-700 shadow-xl shadow-blue-500/5 flex flex-col sm:flex-row sm:items-center justify-between gap-6 group hover:border-[#028dfe]/40 transition-all cursor-pointer relative overflow-hidden active:scale-[0.98]"
                                         >
                                             <div className="flex items-center gap-6 relative z-10">
                                                 <div className="w-16 h-16 bg-gray-50 dark:bg-gray-900/50 rounded-2xl flex items-center justify-center text-[#028dfe] group-hover:scale-110 transition-transform">
@@ -434,7 +434,7 @@ function Profile() {
                                 </button>
                             </div>
 
-                            <div className="p-8 space-y-10">
+                            <div className="p-4 sm:p-8 space-y-10">
                                 {/* Order Info Stats */}
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                     <div className="p-5 bg-gray-50 dark:bg-gray-900/50 rounded-3xl border border-gray-100 dark:border-gray-800">
@@ -477,7 +477,7 @@ function Profile() {
                                     </h4>
                                     <div className="space-y-4">
                                         {selectedOrder.items.map((item: any) => (
-                                            <div key={item.id} className="flex gap-6 p-5 rounded-4xl border border-gray-100 dark:border-gray-700 hover:border-[#028dfe]/30 transition-all group">
+                                            <div key={item.id} className="flex gap-4 sm:gap-6 p-3 sm:p-5 rounded-4xl border border-gray-100 dark:border-gray-700 hover:border-[#028dfe]/30 transition-all group">
                                                 <div className="w-24 h-24 bg-gray-50 dark:bg-gray-900/50 rounded-2xl overflow-hidden shrink-0 ring-1 ring-gray-100 dark:ring-gray-800 group-hover:ring-[#028dfe]/30 transition-all">
                                                     <img
                                                         src={`${BASE_URL}/${item.image}`}
